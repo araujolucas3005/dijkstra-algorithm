@@ -1,7 +1,6 @@
---- Menor distância até B ---
-de A: 1
-de B: 0
-de C: 1
-de D: 1
-de E: 3
-de F: 3
+--- Menor distância até A ---
+de A: 0
+de B: 2
+de C: 3
+de D: 4
+de E: 13

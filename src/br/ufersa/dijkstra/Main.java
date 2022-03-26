@@ -16,7 +16,7 @@ public class Main {
 
       Dijkstra solver = new Dijkstra(matrix);
 
-      WriterParser.write("result.txt", solver.solve(1), 1);
+      WriterParser.write("result.txt", solver.solve(0), 0);
 
     } catch (IOException e) {
 
