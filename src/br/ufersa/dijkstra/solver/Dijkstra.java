@@ -1,16 +1,20 @@
 package br.ufersa.dijkstra.solver;
 
+import br.ufersa.dijkstra.utils.ShortestPath;
 import java.util.*;
 
 public class Dijkstra {
 
-  private final int[][] weightedGraph;
+  private final ShortestPath shortestPath;
 
-  public Dijkstra(int[][] weightedGraph) {
-    this.weightedGraph = weightedGraph;
+  public Dijkstra(ShortestPath shortestPath) {
+    this.shortestPath = shortestPath;
   }
 
-  public int[] solve(int source) {
+  public int[] solve() {
+    int[][] weightedGraph = shortestPath.getMatrix();
+    int source = shortestPath.getTo();
+
     boolean[] visited = new boolean[weightedGraph.length];
     int[] dist = initializeDist();
 
@@ -30,6 +34,7 @@ public class Dijkstra {
           dist[v] = alt;
         }
       }
+      System.out.println();
     }
 
     return dist;
@@ -50,7 +55,7 @@ public class Dijkstra {
   }
 
   private int[] initializeDist() {
-    int[] dist = new int[weightedGraph.length];
+    int[] dist = new int[shortestPath.getMatrix().length];
     Arrays.fill(dist, Integer.MAX_VALUE);
 
     return dist;

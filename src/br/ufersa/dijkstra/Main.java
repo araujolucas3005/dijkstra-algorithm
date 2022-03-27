@@ -3,6 +3,7 @@ package br.ufersa.dijkstra;
 import br.ufersa.dijkstra.solver.Dijkstra;
 import br.ufersa.dijkstra.utils.ReaderParser;
 
+import br.ufersa.dijkstra.utils.ShortestPath;
 import br.ufersa.dijkstra.utils.WriterParser;
 import java.io.IOException;
 
@@ -12,11 +13,13 @@ public class Main {
 
     try {
 
-      int[][] matrix = ReaderParser.parseFile("matrix.txt");
+      ShortestPath shortestPath = ReaderParser.parseFile("matrix.txt");
 
-      Dijkstra solver = new Dijkstra(matrix);
+      Dijkstra solver = new Dijkstra(shortestPath);
 
-      WriterParser.write("result.txt", solver.solve(0), 0);
+      int[] distances = solver.solve();
+
+      WriterParser.write("result.txt", distances, shortestPath.getTo());
 
     } catch (IOException e) {
 

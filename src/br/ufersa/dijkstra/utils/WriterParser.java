@@ -8,10 +8,13 @@ import java.util.stream.IntStream;
 public class WriterParser {
 
   public static String parseOneVertex(int index, int distance) {
+    // if index = 0 -> (char) index + 65 = 'A'
+    //          = 1 -> (char) index + 65 = 'B' ...
     return String.format("de %c: %d", (char) (index + 65), distance);
   }
 
   public static List<String> parseAllVertexes(int[] arr) {
+    // transform an int[] array to List<String>
     return IntStream.range(0, arr.length).mapToObj(i -> parseOneVertex(i, arr[i]))
         .collect(Collectors.toList());
   }
