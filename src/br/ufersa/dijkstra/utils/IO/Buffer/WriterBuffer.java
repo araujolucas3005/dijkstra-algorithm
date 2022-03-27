@@ -1,4 +1,4 @@
-package br.ufersa.dijkstra.utils;
+package br.ufersa.dijkstra.utils.IO.Buffer;
 
 import java.io.BufferedWriter;
 import java.io.FileWriter;

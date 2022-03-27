@@ -1,8 +1,5 @@
 package br.ufersa.dijkstra.solver;
 
-import br.ufersa.dijkstra.utils.ShortestPath;
-import java.util.*;
-
 public class Dijkstra {
 
   private final ShortestPath shortestPath;
@@ -11,53 +8,56 @@ public class Dijkstra {
     this.shortestPath = shortestPath;
   }
 
-  public int[] solve() {
+  public Vertex[] solve() {
     int[][] weightedGraph = shortestPath.getMatrix();
-    int source = shortestPath.getTo();
+    int source = shortestPath.getSource();
 
-    boolean[] visited = new boolean[weightedGraph.length];
-    int[] dist = initializeDist();
+    Vertex[] vertexes = initializeDist();
+    vertexes[source].setValue(0);
 
-    dist[source] = 0;
     for (int i = 0; i < weightedGraph.length - 1; i++) {
-      int u = minDistIndex(dist, visited);
-      visited[u] = true;
+      int u = minDistIndex(vertexes);
+      vertexes[u].setVisited(true);
 
       for (int v = 0; v < weightedGraph.length; v++) {
-        int alt = dist[u] + weightedGraph[u][v];
+        int alt = vertexes[u].getValue() + weightedGraph[u][v];
 
         boolean isAdjacent = weightedGraph[u][v] != 0;
         boolean isValid =
-            isAdjacent && !visited[v] && alt < dist[v] && dist[u] != Integer.MAX_VALUE;
+            isAdjacent && !vertexes[v].isVisited() && alt < vertexes[v].getValue();
 
         if (isValid) {
-          dist[v] = alt;
+          vertexes[v].setValue(alt);
+          vertexes[v].setPrev(u);
         }
       }
-      System.out.println();
     }
 
-    return dist;
+    return vertexes;
   }
 
-  private int minDistIndex(int[] dist, boolean[] visited) {
-    int min = Integer.MAX_VALUE;
-    int min_index = -1;
+  private int minDistIndex(Vertex[] dist) {
+    Vertex min = new Vertex(Integer.MAX_VALUE);
+    int minIndex = -1;
 
     for (int i = 0; i < dist.length; i++) {
-      if (dist[i] <= min && !visited[i]) {
-        min = dist[i];
-        min_index = i;
+      Vertex curr = dist[i];
+      if (curr.getValue() <= min.getValue() && !curr.isVisited()) {
+        min = curr;
+        minIndex = i;
       }
     }
 
-    return min_index;
+    return minIndex;
   }
 
-  private int[] initializeDist() {
-    int[] dist = new int[shortestPath.getMatrix().length];
-    Arrays.fill(dist, Integer.MAX_VALUE);
+  private Vertex[] initializeDist() {
+    Vertex[] vertexes = new Vertex[shortestPath.getMatrix().length];
 
-    return dist;
+    for (int i = 0; i < shortestPath.getMatrix().length; i++) {
+      vertexes[i] = new Vertex(Integer.MAX_VALUE);
+    }
+
+    return vertexes;
   }
 }

@@ -1,10 +1,11 @@
 package br.ufersa.dijkstra;
 
 import br.ufersa.dijkstra.solver.Dijkstra;
-import br.ufersa.dijkstra.utils.ReaderParser;
+import br.ufersa.dijkstra.solver.Vertex;
+import br.ufersa.dijkstra.utils.IO.Parser.ReaderParser;
 
-import br.ufersa.dijkstra.utils.ShortestPath;
-import br.ufersa.dijkstra.utils.WriterParser;
+import br.ufersa.dijkstra.solver.ShortestPath;
+import br.ufersa.dijkstra.utils.IO.Parser.WriterParser;
 import java.io.IOException;
 
 public class Main {
@@ -17,9 +18,11 @@ public class Main {
 
       Dijkstra solver = new Dijkstra(shortestPath);
 
-      int[] distances = solver.solve();
+      Vertex[] vertexes = solver.solve();
 
-      WriterParser.write("result.txt", distances, shortestPath.getTo());
+      WriterParser parser = new WriterParser(vertexes);
+
+      parser.write("result.txt");
 
     } catch (IOException e) {
 

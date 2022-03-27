@@ -1,5 +1,7 @@
-package br.ufersa.dijkstra.utils;
+package br.ufersa.dijkstra.utils.IO.Parser;
 
+import br.ufersa.dijkstra.utils.IO.Buffer.ReaderBuffer;
+import br.ufersa.dijkstra.solver.ShortestPath;
 import java.io.IOException;
 import java.util.Arrays;
 import java.util.List;
@@ -13,11 +15,7 @@ public class ReaderParser {
     List<String> lines = buffer.lines().collect(Collectors.toList());
 
     // toC = 'A' | 'B' | 'C' | ...
-    char toC = lines.remove(lines.size() - 1).charAt(0);
-
-    // 'A' - 65 = 0
-    // 'B' - 65 - 1 ...
-    int to = toC - 65;
+    int source = Integer.parseInt(lines.remove(lines.size() - 1));
 
     int[][] weightedGraph = lines
         .stream()
@@ -26,7 +24,7 @@ public class ReaderParser {
 
     buffer.close();
 
-    return new ShortestPath(weightedGraph, to);
+    return new ShortestPath(weightedGraph, source);
   }
 
   private static int[] parseLine(String line) {
