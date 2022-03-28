@@ -12,28 +12,38 @@ public class Dijkstra {
     int[][] weightedGraph = shortestPath.getMatrix();
     int source = shortestPath.getSource();
 
-    Vertex[] vertexes = initializeDist();
-    vertexes[source].setValue(0);
+    // Atribua valor zero à estimativa do custo mínimo
+    // do nó O (a origem da busca) e infinito às demais estimativas
+    Vertex[] vertices = initializeDist();
+    vertices[source].setValue(0);
 
     for (int i = 0; i < weightedGraph.length - 1; i++) {
-      int u = minDistIndex(vertexes);
-      vertexes[u].setVisited(true);
+      // Indice do vértice de menor distância
+      int u = minDistIndex(vertices);
 
+      // Fecha o nó
+      vertices[u].setVisited(true);
+
+      // para todo vértice adjacente de u
       for (int v = 0; v < weightedGraph.length; v++) {
-        int alt = vertexes[u].getValue() + weightedGraph[u][v];
-
         boolean isAdjacent = weightedGraph[u][v] != 0;
-        boolean isValid =
-            isAdjacent && !vertexes[v].isVisited() && alt < vertexes[v].getValue();
+        if (!isAdjacent) continue;
 
+        // Some a estimativa do nó u com o custo do arco que une u a v
+        int alt = vertices[u].getValue() + weightedGraph[u][v];
+
+        boolean isValid = !vertices[v].isVisited() && alt < vertices[v].getValue();
+
+        // Caso esta soma seja melhor que a estimativa anterior
+        // para o nó v, substitua-a e anote u como precedente de v
         if (isValid) {
-          vertexes[v].setValue(alt);
-          vertexes[v].setPrev(u);
+          vertices[v].setValue(alt);
+          vertices[v].setPrev(u);
         }
       }
     }
 
-    return vertexes;
+    return vertices;
   }
 
   private int minDistIndex(Vertex[] dist) {
@@ -53,12 +63,12 @@ public class Dijkstra {
   }
 
   private Vertex[] initializeDist() {
-    Vertex[] vertexes = new Vertex[shortestPath.getMatrix().length];
+    Vertex[] vertices = new Vertex[shortestPath.getMatrix().length];
 
     for (int i = 0; i < shortestPath.getMatrix().length; i++) {
-      vertexes[i] = new Vertex(Integer.MAX_VALUE);
+      vertices[i] = new Vertex(Integer.MAX_VALUE);
     }
 
-    return vertexes;
+    return vertices;
   }
 }

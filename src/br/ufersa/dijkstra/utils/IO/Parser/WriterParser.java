@@ -9,15 +9,15 @@ import java.util.stream.IntStream;
 
 public class WriterParser {
 
-  private final Vertex[] vertexes;
+  private final Vertex[] vertices;
 
-  public WriterParser(Vertex[] vertexes) {
-    this.vertexes = vertexes;
+  public WriterParser(Vertex[] vertices) {
+    this.vertices = vertices;
   }
 
   public void write(String path) throws IOException {
     WriterBuffer buffer = new WriterBuffer(path);
-    buffer.write(parseAllVertexes(vertexes));
+    buffer.write(parseAllVertexes(vertices));
     buffer.close();
   }
 
@@ -40,7 +40,7 @@ public class WriterParser {
           .append(curr.getPrev())
           .append(" ");
 
-      curr = vertexes[curr.getPrev()];
+      curr = vertices[curr.getPrev()];
     }
 
     builder.append("]");
