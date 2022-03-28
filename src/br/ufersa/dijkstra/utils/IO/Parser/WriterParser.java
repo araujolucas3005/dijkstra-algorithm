@@ -17,35 +17,30 @@ public class WriterParser {
 
   public void write(String path) throws IOException {
     WriterBuffer buffer = new WriterBuffer(path);
-    buffer.write(parseAllVertexes(vertices));
+    buffer.write(parseAllVertices(vertices));
     buffer.close();
   }
 
-  private List<String> parseAllVertexes(Vertex[] arr) {
+  private List<String> parseAllVertices(Vertex[] arr) {
     return IntStream.range(0, arr.length).mapToObj(i -> parseOneVertex(i, arr[i]))
         .collect(Collectors.toList());
   }
 
   private String parseOneVertex(int index, Vertex vertex) {
-    String vertexPath = parseVertexPath(vertex);
+    String vertexPath = parseVertexPath(index, vertex);
     return String.format("v(%d), d = %d %s", index, vertex.getValue(), vertexPath);
   }
 
-  private String parseVertexPath(Vertex vertex) {
-    StringBuilder builder = new StringBuilder("[ ");
+  private String parseVertexPath(int index, Vertex vertex) {
+    StringBuilder builder = new StringBuilder().append(index);
 
     Vertex curr = vertex;
     while (curr.getPrev() != -1) {
-      builder
-          .append(curr.getPrev())
-          .append(" ");
-
+      builder.insert(0, String.format("%d -> ", curr.getPrev()));
       curr = vertices[curr.getPrev()];
     }
 
-    builder.append("]");
-
-    return builder.toString();
+    return "[ " + builder + " ]";
   }
 
 }

@@ -24,7 +24,7 @@ public class Dijkstra {
       // Fecha o nó
       vertices[u].setVisited(true);
 
-      // para todo vértice adjacente de u
+      // para todo vértice não visitado adjacente de u
       for (int v = 0; v < weightedGraph.length; v++) {
         boolean isAdjacent = weightedGraph[u][v] != 0;
         if (!isAdjacent) continue;
@@ -47,14 +47,14 @@ public class Dijkstra {
   }
 
   private int minDistIndex(Vertex[] dist) {
-    Vertex min = new Vertex(Integer.MAX_VALUE);
+    int min = Integer.MAX_VALUE;
     int minIndex = -1;
 
     for (int i = 0; i < dist.length; i++) {
       Vertex curr = dist[i];
 
-      if (curr.getValue() <= min.getValue() && !curr.isVisited()) {
-        min = curr;
+      if (curr.getValue() <= min && !curr.isVisited()) {
+        min = curr.getValue();
         minIndex = i;
       }
     }
