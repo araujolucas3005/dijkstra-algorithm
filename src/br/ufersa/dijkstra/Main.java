@@ -29,8 +29,8 @@ public class Main {
       WriterParser parser = new WriterParser(vertexes);
 
       parser.write(
-          String.format("%s_%s", filename.substring(0, filename.length() - 4),
-              "examples/result.txt"));
+          String.format("%s/%s_%s", "examples", filename.substring(0, filename.length() - 4),
+              "result.txt"));
 
 
     } catch (IOException e) {
