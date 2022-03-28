@@ -4,7 +4,6 @@ import br.ufersa.dijkstra.solver.Dijkstra;
 import br.ufersa.dijkstra.solver.Vertex;
 import br.ufersa.dijkstra.utils.IO.Parser.ReaderParser;
 
-import br.ufersa.dijkstra.solver.ShortestPath;
 import br.ufersa.dijkstra.utils.IO.Parser.WriterParser;
 import java.io.IOException;
 import java.util.Scanner;
@@ -20,9 +19,7 @@ public class Main {
 
     try {
 
-      ShortestPath shortestPath = ReaderParser.parseFile(String.format("examples/%s", filename));
-
-      Dijkstra solver = new Dijkstra(shortestPath);
+      Dijkstra solver = ReaderParser.parseFile(String.format("examples/%s", filename));
 
       Vertex[] vertexes = solver.solve();
 

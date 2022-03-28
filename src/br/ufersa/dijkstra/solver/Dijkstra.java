@@ -2,16 +2,15 @@ package br.ufersa.dijkstra.solver;
 
 public class Dijkstra {
 
-  private final ShortestPath shortestPath;
+  private final int[][] weightedGraph;
+  private final int source;
 
-  public Dijkstra(ShortestPath shortestPath) {
-    this.shortestPath = shortestPath;
+  public Dijkstra(int[][] weightedGraph, int source) {
+    this.weightedGraph = weightedGraph;
+    this.source = source;
   }
 
   public Vertex[] solve() {
-    int[][] weightedGraph = shortestPath.getMatrix();
-    int source = shortestPath.getSource();
-
     // Atribua valor zero à estimativa do custo mínimo
     // do nó O (a origem da busca) e infinito às demais estimativas
     Vertex[] vertices = initializeDist();
@@ -63,9 +62,9 @@ public class Dijkstra {
   }
 
   private Vertex[] initializeDist() {
-    Vertex[] vertices = new Vertex[shortestPath.getMatrix().length];
+    Vertex[] vertices = new Vertex[weightedGraph.length];
 
-    for (int i = 0; i < shortestPath.getMatrix().length; i++) {
+    for (int i = 0; i < weightedGraph.length; i++) {
       vertices[i] = new Vertex(Integer.MAX_VALUE);
     }
 
