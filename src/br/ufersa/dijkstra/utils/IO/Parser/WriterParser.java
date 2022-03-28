@@ -28,7 +28,7 @@ public class WriterParser {
 
   private String parseOneVertex(int index, Vertex vertex) {
     String vertexPath = parseVertexPath(vertex);
-    return String.format("v(%d), d = %d \n%s\n", index, vertex.getValue(), vertexPath);
+    return String.format("v(%d), d = %d %s", index, vertex.getValue(), vertexPath);
   }
 
   private String parseVertexPath(Vertex vertex) {

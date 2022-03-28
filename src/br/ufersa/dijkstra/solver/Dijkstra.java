@@ -42,6 +42,7 @@ public class Dijkstra {
 
     for (int i = 0; i < dist.length; i++) {
       Vertex curr = dist[i];
+
       if (curr.getValue() <= min.getValue() && !curr.isVisited()) {
         min = curr;
         minIndex = i;

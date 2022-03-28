@@ -14,7 +14,6 @@ public class ReaderParser {
 
     List<String> lines = buffer.lines().collect(Collectors.toList());
 
-    // toC = 'A' | 'B' | 'C' | ...
     int source = Integer.parseInt(lines.remove(lines.size() - 1));
 
     int[][] weightedGraph = lines
