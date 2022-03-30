@@ -36,7 +36,7 @@ public class WriterParser {
 
     Vertex curr = vertex;
     while (curr.getPrev() != -1) {
-      builder.insert(0, String.format("%d -> ", curr.getPrev()));
+      builder.insert(0, String.format("%d -<%d>-> ", curr.getPrev(), curr.getValue()));
       curr = vertices[curr.getPrev()];
     }
 

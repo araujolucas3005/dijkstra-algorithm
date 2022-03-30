@@ -21,14 +21,16 @@ public class Main {
 
       Dijkstra solver = ReaderParser.parseFile(String.format("examples/%s", filename));
 
-      Vertex[] vertexes = solver.solve();
+      Vertex[] vertices = solver.solve();
 
-      WriterParser parser = new WriterParser(vertexes);
+      WriterParser parser = new WriterParser(vertices);
 
-      parser.write(
-          String.format("%s/%s_%s", "examples", filename.substring(0, filename.length() - 4),
-              "result.txt"));
+      String resultFilename = String.format("%s/%s_%s", "examples", filename.substring(0, filename.length() - 4),
+          "result.txt");
 
+      parser.write(resultFilename);
+
+      System.out.printf("Resultado escrito no caminho: %s", resultFilename);
 
     } catch (IOException e) {
 
