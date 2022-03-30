@@ -27,6 +27,12 @@ public class WriterParser {
   }
 
   private String parseOneVertex(int index, Vertex vertex) {
+    boolean isInfinity = vertex.getValue() == Integer.MAX_VALUE;
+
+    if (isInfinity) {
+      return String.format("v(%d), d = ∞", index);
+    }
+
     String vertexPath = parseVertexPath(index, vertex);
     return String.format("v(%d), d = %d %s", index, vertex.getValue(), vertexPath);
   }

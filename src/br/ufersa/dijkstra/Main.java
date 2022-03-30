@@ -34,6 +34,8 @@ public class Main {
 
     } catch (IOException e) {
 
+      e.printStackTrace();
+
       System.out.println("Erro na operacao I/O");
 
     }

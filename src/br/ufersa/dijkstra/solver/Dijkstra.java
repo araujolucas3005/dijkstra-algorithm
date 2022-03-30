@@ -26,12 +26,15 @@ public class Dijkstra {
       // para todo vértice não visitado adjacente de u
       for (int v = 0; v < weightedGraph.length; v++) {
         boolean isAdjacent = weightedGraph[u][v] != 0;
-        if (!isAdjacent) continue;
+        if (!isAdjacent) {
+          continue;
+        }
 
         // Some a estimativa do nó u com o custo do arco que une u a v
         int alt = vertices[u].getValue() + weightedGraph[u][v];
 
-        boolean isValid = !vertices[v].isVisited() && alt < vertices[v].getValue();
+        boolean isValid = !vertices[v].isVisited() && alt < vertices[v].getValue()
+            && vertices[u].getValue() != Integer.MAX_VALUE;
 
         // Caso esta soma seja melhor que a estimativa anterior
         // para o nó v, substitua-a e anote u como precedente de v
